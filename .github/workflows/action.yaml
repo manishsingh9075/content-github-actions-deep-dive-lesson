@@ -13,12 +13,12 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3
+          python-version: 3.8
       - name: Install Libraries
         run: |
             cd function
             python -m pip install --upgrade pip
-            if [ -f requirements.txt ]; then pip install -r requirements.txt .; fi
+            if [ -f requirements.txt ]; then pip install -r requirements.txt -t .; fi
       - name: Create zip bundle
         run: |
             cd function
