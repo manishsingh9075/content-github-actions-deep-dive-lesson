@@ -1,0 +1,35 @@
+name: Deploy my lambda Fubnction
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.2
+      - name: Install Libraries
+        run: |
+            cd function
+            python -m pip install --upgrade pip
+            if [ -f requirements.txt ]; then pip install -r requirements.txt .; fi
+      - name: Create zip bundle
+        run: |
+            cd function
+            zip -r  ../${{ github.sha }}.zip .
+      - name: Achieve Artifacts
+        uses: actions/upload-artifacts@v2
+        with:
+          name: zipped-bundle
+          path: ${{ github.sha }}.zip
+
+
+
+
+      
