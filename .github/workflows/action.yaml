@@ -49,6 +49,7 @@ jobs:
           path: ${{ github.sha }}.zip
 
   publish:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Create Relaese
